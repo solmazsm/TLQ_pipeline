@@ -47,8 +47,8 @@ public HashMap<String, Object> handleRequest(Request request, Context context) {
 
     int row = request.getRow();
     int col = request.getCol();
-    String bucketname = request.getBucketname();
-    String filename = request.getFilename();
+    String bucketname = "test.bucket.sales.dimo";
+    String filename = "100SalesRecords_processed.csv";
 
 // Create logger
     LambdaLogger logger = context.getLogger();
@@ -76,7 +76,7 @@ public HashMap<String, Object> handleRequest(Request request, Context context) {
 // r.setMysqlversion(request.getMysqlversion("version"));
 // Manually loading the JDBC Driver is commented out
 // No longer required since JDBC 4
-//Class.forName(driver);
+        //Class.forName(driver);
         Connection con = DriverManager.getConnection(url, username, password);
 
         /**
@@ -97,18 +97,13 @@ public HashMap<String, Object> handleRequest(Request request, Context context) {
         while (scanner.hasNext()) {
             text += scanner.nextLine();
             String[] val = text.split(",");
-            PreparedStatement ps = con.prepareStatement("insert into sale"+ "(Region,Country,ItemType,SalesChannel,OrderPriority,OrderDate, OrderId, ShipDate, UnitSold, UnitPrice, UnitCost, TotalRevenue, TotalCost, TotalProfit, OrderProcessingTime, CrossMargi ) values('" + val[0] + "','" + val[1] + "','" + val[2] + "','"
-                    + val[3] + "','" + val[4] + "','" + val[5] + "','"+ val[6] + 
-                    "','" + val[7] + "','" + val[8] + "','" + val[9] +
-                    "','" + val[10] + "','" + val[11] + "','" + val[12] +
-                    "','" + val[13] + "','" + val[14] + "','" + val[15] + "')");
+            PreparedStatement ps = con.prepareStatement("insert into sale1"+ "(Region,Country,ItemType,SalesChannel,OrderPriority,OrderDate, OrderId, ShipDate, UnitSold, UnitPrice, UnitCost, TotalRevenue, TotalCost, TotalProfit, OrderProcessingTime, CrossMargin ) values('" + val[0] + "','" + val[1] + "','" + val[2] + "','"
+                    + val[3] + "','" + val[4] + "','" + val[5] + "',"+ val[6] + 
+                    ",'" + val[7] + "'," + val[8] + "," + val[9] +
+                    "," + val[10] + "," + val[11] + "," + val[12] +
+                    "," + val[13] + "," + val[14] + "," + val[15] + ")");
            
-            String qq= "insert into sale"+ "(Region,Country,ItemType,SalesChannel,OrderPriority,OrderDate, OrderId, ShipDate, UnitSold, UnitPrice, UnitCost, TotalRevenue, TotalCost, TotalProfit, OrderProcessingTime, CrossMargi ) values('" + val[0] + "','" + val[1] + "','" + val[2] + "','"
-                    + val[3] + "','" + val[4] + "','" + val[5] + "','"+ val[6] + 
-                    "','" + val[7] + "','" + val[8] + "','" + val[9] +
-                    "','" + val[10] + "','" + val[11] + "','" + val[12] +
-                    "','" + val[13] + "','" + val[14] + "','" + val[15] + "')";
-            System.out.println(qq);
+            
             
             
             ps.execute();
